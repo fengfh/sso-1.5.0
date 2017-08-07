@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>bingo-base-pom</artifactId>
+		<groupId>bingo.pom.parent</groupId>
+		<version>1.1.0</version>
+	</parent>
+
+	<groupId>bingo.sso</groupId>
+	<artifactId>bingo-sso-1.5</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>bingo.sso.server.webapp</name>
+	
+	<scm>
+		<developerConnection>scm:svn:https://svn.bingosoft.net:8888/bingosoft-framework/trunk/bingo-sso/bingo-sso-web/bingo-sso-server-webapp</developerConnection>
+		<connection>scm:svn:https://svn.bingosoft.net:8888/bingosoft-framework/trunk/bingo-sso/bingo-sso-web/bingo-sso-server-webapp</connection>
+	</scm>
+
+	<properties>
+		<bingo-sso-server-plugin-ntlm.version>1.5.0</bingo-sso-server-plugin-ntlm.version>
+		<bingo-sso-server-plugin-jdbc.version>1.5.0</bingo-sso-server-plugin-jdbc.version>
+		<bingo-sso-server-plugin-registry-db.version>1.5.0</bingo-sso-server-plugin-registry-db.version>
+		<bingo-sso-server-plugin-log.version>1.5.0</bingo-sso-server-plugin-log.version>
+		<bingo-sso-server-plugin-gmcc-portal.version>1.5.0</bingo-sso-server-plugin-gmcc-portal.version>
+		<bingo-sso-server-cas.version>1.5.0</bingo-sso-server-cas.version>
+		<bingo-sso-server-core.version>1.5.1</bingo-sso-server-core.version>
+		<finalName>sso</finalName>
+	</properties>
+
+	<build>
+		<finalName>${finalName}</finalName>
+		<outputDirectory>${basedir}/WebRoot/WEB-INF/classes</outputDirectory>		
+	</build>
+
+	<dependencies>
+		<!-- add your sso server plugin here -->
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-plugin-ntlm</artifactId>
+			<version>${bingo-sso-server-plugin-ntlm.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-plugin-jdbc</artifactId>
+			<version>${bingo-sso-server-plugin-jdbc.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-plugin-gmcc-portal</artifactId>
+			<version>${bingo-sso-server-plugin-gmcc-portal.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-plugin-registry-db</artifactId>
+			<version>${bingo-sso-server-plugin-registry-db.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-plugin-log</artifactId>
+			<version>${bingo-sso-server-plugin-log.version}</version>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-cas</artifactId>
+			<version>${bingo-sso-server-cas.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>bingo.sso</groupId>
+			<artifactId>bingo-sso-server-core</artifactId>
+			<version>${bingo-sso-server-core.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.3</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.2.134</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.3.0</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>sqljdbc</artifactId>
+			<version>3.0</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+</project>

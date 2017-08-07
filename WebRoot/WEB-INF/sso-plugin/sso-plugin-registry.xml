@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- Ticket Registry -->
+    <bean id="ticketGrantingTicketRegistry" class="bingo.sso.server.cas.ticket.CasTicketGrantingTicketRegistry" />
+    
+    <!--Quartz -->
+    <!-- TICKET REGISTRY CLEANER -->
+    <bean id="ticketRegistryCleaner" class="bingo.sso.server.cas.ticket.CasTicketRegistryCleaner"
+          p:ticketRegistry-ref="ticketGrantingTicketRegistry" />
+    
+    <bean id="jobDetailTicketRegistryCleaner" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+          p:targetObject-ref="ticketRegistryCleaner"
+          p:targetMethod="clean" />
+    
+    <bean id="triggerJobDetailTicketRegistryCleaner" class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+          p:jobDetail-ref="jobDetailTicketRegistryCleaner"
+          p:startDelay="20000"
+          p:repeatInterval="5000000" />          
+
+	<!-- registry -->
+	<bean id="casAssociationRegistry" class="bingo.sso.server.cas.openid.CasAssociationRegistry" 
+		p:registry-ref="casAssociationTicketRegistry"/>
+	<bean id="casAssociationTicketRegistry" class="bingo.sso.server.cas.ticket.CasTicketGrantingTicketRegistry" />
+    
+	<bean id="nonceRegistry" class="bingo.sso.server.protocol.openid.CacheNonceRegistry" />
+	
+	<!--Quartz -->
+	<!-- CasAssociation REGISTRY CLEANER -->
+	<bean id="casAssociationTicketRegistryCleaner" class="bingo.sso.server.cas.ticket.CasTicketRegistryCleaner"
+		p:ticketRegistry-ref="casAssociationTicketRegistry" />
+	<bean id="jobDetailCasAssociationTicketRegistryCleaner" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+		p:targetObject-ref="casAssociationTicketRegistryCleaner"
+		p:targetMethod="clean" />
+	<bean id="triggerJobDetailCasAssociationTicketRegistryCleaner" class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+		p:jobDetail-ref="jobDetailCasAssociationTicketRegistryCleaner"
+		p:startDelay="25000"
+		p:repeatInterval="500000" />
+	<!-- NONCE REGISTRY CLEANER -->
+	<bean id="cacheNonceRegistryCleaner" class="bingo.sso.server.protocol.openid.CacheNonceRegistryCleaner"
+		p:cacheNonceRegistry-ref="nonceRegistry" />
+    
+	<bean id="jobDetailCacheNonceRegistryCleaner" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"
+		p:targetObject-ref="cacheNonceRegistryCleaner"
+		p:targetMethod="clean" />
+    
+	<bean id="triggerJobDetailCacheNonceRegistryCleaner" class="org.springframework.scheduling.quartz.SimpleTriggerBean"
+		p:jobDetail-ref="jobDetailCacheNonceRegistryCleaner"
+		p:startDelay="15000"
+		p:repeatInterval="1800000" />  
+</beans>
